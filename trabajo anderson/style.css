@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root{
+  --fondo: #f4f6f8;
+  --card: #ffffff;
+  --texto: #23303b;
+  --muted: #6b7a86;
+  --accent: #2b8cff;
+  --accent-2: #66a9ff;
+  --success: #2aa876;
+  --sombra: 0 6px 18px rgba(35, 48, 59, 0.08);
+  --radius: 12px;
+  --espacio: 18px;
+}
+
+html, body {
+  height: 100%;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--fondo), #eef3f7 200px);
+  color: var(--texto);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.contenedor{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.tarjeta {
+  width: 100%;
+  max-width: 520px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--sombra);
+  padding: calc(var(--espacio) * 1.2);
+  display: grid;
+  gap: 14px;
+}
+
+.tarjeta h1 {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tarjeta p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+blockquote {
+  background: linear-gradient(90deg, rgba(43,140,255,0.06), rgba(102,169,255,0.03));
+  border-left: 4px solid rgba(43,140,255,0.12);
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: #2f4f6f;
+  font-size: 0.94rem;
+}
+
+#btn-clima {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(43,140,255,0.18);
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+  font-size: 0.98rem;
+}
+
+#btn-clima:active {
+  transform: translateY(2px) scale(0.998);
+  box-shadow: 0 4px 10px rgba(43,140,255,0.14);
+}
+
+#btn-clima:hover {
+  opacity: 0.98;
+  transform: translateY(-2px);
+}
+
+#texto-clima {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fbfdff;
+  border: 1px solid rgba(35,48,59,0.04);
+  color: var(--texto);
+  font-size: 0.98rem;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: pre-line;
+}
+
+#texto-clima.error {
+  color: #8b2d2d;
+  background: #fff6f6;
+  border-color: rgba(139,45,45,0.06);
+}
+
+#texto-clima.ok {
+  color: var(--success);
+  background: #f3fbf7;
+  border-color: rgba(42,168,118,0.06);
+}
+
+.footer {
+  margin-top: 6px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+@media (max-width: 520px) {
+  .tarjeta {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .tarjeta h1 { font-size: 1.25rem; }
+  #texto-clima { font-size: 0.95rem; }
+  #btn-clima { width: 100%; padding: 12px; }
+}

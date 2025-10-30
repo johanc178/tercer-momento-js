@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMW M8 - Proyecto</title>
+    <link rel="stylesheet" href="/Darwin/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>BMW M8 COMPETITION</h1>
+            <p class="tagline">El poder definitivo</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-image">
+                <img src="/images/carrodarwin.jpeg" alt="BMW M8 Competition" class="bmw-image">
+            </div>
+            <h2>Especificaciones del M8</h2>
+            <div class="specs">
+                <div class="spec-item">
+                    <h3>625 HP</h3>
+                    <p>Potencia</p>
+                </div>
+                <div class="spec-item">
+                    <h3>3.2s</h3>
+                    <p>0-100 km/h</p>
+                </div>
+                <div class="spec-item">
+                    <h3>305 km/h</h3>
+                    <p>Velocidad Máxima</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="api-section">
+            <h2>Modelos BMW Disponibles</h2>
+            <p class="subtitle">Datos obtenidos en tiempo real desde API</p>
+
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Cargando datos...</p>
+            </div>
+
+            <div id="error" class="error" style="display: none;"></div>
+
+            <div id="cars-container" class="cars-grid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 BMW M8 </p>
+    </footer>
+
+    <script src="/Darwin/main.js"></script>
+</body>
+
+</html>

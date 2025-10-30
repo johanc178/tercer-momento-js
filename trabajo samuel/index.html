@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Búsqueda de Autos</title>
+  <style>
+    body {
+      background-color: #101820;
+      color: #f2f2f2;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #f2aa4c;
+    }
+
+    form {
+
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 180px;
+    }
+
+    button {
+      background-color: #f2aa4c;
+      color: #101820;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #e09536;
+    }
+
+    #resultado {
+      width: 100%;
+      max-width: 600px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .auto {
+      background-color: #1a1a1a;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+
+    .auto h3 {
+      margin: 0 0 5px 0;
+      color: #f2aa4c;
+    }
+
+    .auto p {
+      margin: 3px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Buscador de Autos</h1>
+
+  <form id="form">
+    <input type="text" id="marca" placeholder="Marca (ej: Ford)" required>
+    <input type="text" id="modelo" placeholder="Modelo (ej: Mustang)">
+    <button type="submit">Buscar</button>
+  </form>
+
+  <div id="resultado"></div>
+
+<script>
+  const form = document.getElementById("form");
+  const resultado = document.getElementById("resultado");
+
+  async function fetchModels(make) {
+    const url = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${encodeURIComponent(make)}?format=json`;
+    const resp = await fetch(url, { method: 'GET' });
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    return Array.isArray(data.Results) ? data.Results : [];
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const marca = document.getElementById("marca").value.trim();
+    const modelo = document.getElementById("modelo").value.trim();
+
+    resultado.innerHTML = "<p class='loading'>Cargando...</p>";
+
+    try {
+      const data = await fetchModels(marca);
+      const modelos = data.filter(m => modelo ? m.Model_Name.toLowerCase().includes(modelo.toLowerCase()) : true);
+
+      resultado.innerHTML = "";
+      if (modelos.length === 0) {
+        resultado.textContent = "No se encontraron autos.";
+        return;
+      }
+
+      modelos.forEach(m => {
+        const div = document.createElement("div");
+        div.className = "auto";
+        div.innerHTML = `
+          <h3>${m.Make_Name} ${m.Model_Name}</h3>
+          <p><strong>ID:</strong> ${m.Model_ID}</p>
+        `;
+        resultado.appendChild(div);
+      });
+    } catch (err) {
+      console.error(err);
+      resultado.innerHTML = "<p class='error'>No se pudieron cargar los datos. Intenta más tarde.</p>";
+    }
+  });
+</script>
+
+</body>
+</html>
